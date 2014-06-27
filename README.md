@@ -1,18 +1,16 @@
 backend
 =======
 
-GAE backend for our sports corp hackathon application.
+Java backend for the sports corp hackathon application. Currently deployed on EC2. Uses DynamoDB and SNS. 
 
-Pre-requisities:  
-`python 2.7`  
-`google app engine sdk`
+Requisities:  
+`java 1.7`
+`export AWS_ACCESS_KEY="your access key here"`  
+`export AWS_SECRET_KEY="your secret key here"`
 
-Setup: 	
-`./install_dependencies.sh`
+Running:  
+`mvn clean compile`  
+`mvn exec:java`
 
-Run locally:	
-`dev_appserver.py app`
-
-Deploy: 	 
-`appcfg.py app`  
-`http://numeric-dialect-623.appspot.com/`
+Deploying:  
+`Nothing official set up yet.`
