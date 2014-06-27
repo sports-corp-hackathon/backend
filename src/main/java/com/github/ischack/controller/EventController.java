@@ -1,21 +1,53 @@
 package com.github.ischack.controller;
 
+import argo.saj.InvalidSyntaxException;
+import com.github.ischack.constants.Dynamo;
 import com.github.ischack.model.Event;
+import com.github.ischack.repository.EventRepository;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
-@Path("event")
+@Path("/event")
 public class EventController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Event getEvent() {
-        Event event = new Event();
-        event.setAdminId("asdf");
-        return event;
+    public List<Event> getEvents() {
+        return EventRepository.getAllEvents();
+    }
+
+    @GET @Path("/{" + Dynamo.EVENT_ID + "}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Event getEvent(
+            @PathParam(Dynamo.EVENT_ID) String eventId
+    ) {
+        return EventRepository.getEvent(eventId);
+    }
+
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    public String addEvent(String data) {
+
+        try {
+            Event e = Event.fromJsonFromPost(data);
+            EventRepository.putEvent(e);
+        } catch (InvalidSyntaxException e) {
+            return e.getMessage();
+        }
+
+        return "success";
+
+    }
+
+    @DELETE @Path("/{" + Dynamo.EVENT_ID + "}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String deleteEvent(
+            @PathParam("eventId") String eventId
+    ) {
+        EventRepository.deleteEvent(eventId);
+        return "success";
     }
 
 }

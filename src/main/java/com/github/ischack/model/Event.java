@@ -1,5 +1,14 @@
 package com.github.ischack.model;
 
+import argo.jdom.JdomParser;
+import argo.jdom.JsonRootNode;
+import argo.saj.InvalidSyntaxException;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.util.json.JSONObject;
+import com.github.ischack.constants.Dynamo;
+
+import java.util.Map;
+
 public class Event {
 
     private String id;
@@ -8,7 +17,6 @@ public class Event {
     private String picURL;
     private String startTime;
     private String endTime;
-    private String adminId;
 
     public String getId() {
         return id;
@@ -58,11 +66,31 @@ public class Event {
         this.endTime = endTime;
     }
 
-    public String getAdminId() {
-        return adminId;
+
+    public static Event fromJsonFromPost(String json) throws InvalidSyntaxException {
+        JdomParser parser = new JdomParser();
+        JsonRootNode node = parser.parse(json);
+
+        Event e = new Event();
+        e.setName(node.getStringValue("name"));
+        e.setOrganization(node.getStringValue("organization"));
+        e.setPicURL(node.getStringValue("picture"));
+        e.setStartTime(node.getStringValue("startTime"));
+        e.setEndTime(node.getStringValue("endTime"));
+
+        return e;
     }
 
-    public void setAdminId(String adminId) {
-        this.adminId = adminId;
+    public static Event fromMap(Map<String, AttributeValue> map) {
+        Event e = new Event();
+        e.setId(map.get(Dynamo.EVENT_ID).getS());
+        e.setName(map.get(Dynamo.EVENT_NAME).getS());
+        e.setOrganization(map.get(Dynamo.EVENT_ORG).getS());
+        e.setPicURL(map.get(Dynamo.EVENT_PICTURE).getS());
+        e.setStartTime(map.get(Dynamo.EVENT_START).getS());
+        e.setEndTime(map.get(Dynamo.EVENT_END).getS());
+
+        return e;
     }
+
 }
