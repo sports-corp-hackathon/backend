@@ -4,15 +4,11 @@ backend
 GAE backend for our sports corp hackathon application.
 
 Pre-requisities:  
-`python 2.7`  
-`google app engine sdk`
+`java 1.7`
 
-Setup: 	
-`./install_dependencies.sh`
+Running:  
+`mvn clean compile`  
+`mvn exec:java`
 
-Run locally:	
-`dev_appserver.py app`
-
-Deploy: 	 
-`appcfg.py app`  
-`http://numeric-dialect-623.appspot.com/`
+Deploying:  
+`Nothing official set up yet.`
