@@ -3,9 +3,16 @@ backend
 
 GAE backend for our sports corp hackathon application.
 
-To setup: 	./install_dependencies.sh
+Pre-requisities:  
+`python 2.7`  
+`google app engine sdk`
 
-To run locally:	dev_appserver.py app
+Setup: 	
+`./install_dependencies.sh`
 
-To deploy: 	appcfg.py app  
-then go to	http://numeric-dialect-623.appspot.com/
+Run locally:	
+`dev_appserver.py app`
+
+Deploy: 	 
+`appcfg.py app`  
+`http://numeric-dialect-623.appspot.com/`
