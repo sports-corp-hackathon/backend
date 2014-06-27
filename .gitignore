@@ -4,3 +4,7 @@ app/jinja2/*
 app/simplejson/*
 app/werkzeug/*
 *.pyc
+
+.idea/*
+*.iml
+target/*
