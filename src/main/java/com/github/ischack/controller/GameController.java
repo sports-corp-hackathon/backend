@@ -3,7 +3,7 @@ package com.github.ischack.controller;
 import com.github.ischack.constants.Dynamo;
 import com.github.ischack.model.Game;
 import com.github.ischack.model.Score;
-import com.github.ischack.repository.GameRepository;
+import com.github.ischack.repository.GameStore;
 import com.github.ischack.repository.PlayerRepository;
 
 import javax.print.attribute.standard.Media;
@@ -38,7 +38,7 @@ public class GameController {
                 return null;
             }
 
-            GameRepository.putGame(g);
+            GameStore.createGame(g);
             return g;
 
         } catch (Exception e) {

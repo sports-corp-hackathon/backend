@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.ischack.constants.Dynamo;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,6 +19,7 @@ public class Game {
     private String gamePic;
     private String rules;
     private String scoreType;
+    private Map<String, String> scores;
 
     public String getId() {
         return id;
@@ -65,6 +67,14 @@ public class Game {
 
     public void setScoreType(String scoreType) {
         this.scoreType = scoreType;
+    }
+
+    public Map<String, String> getScores() {
+        return scores;
+    }
+
+    public void setScores(Map<String, String> scores) {
+        this.scores = scores;
     }
 
     public static Game fromJson(String json) throws IOException {

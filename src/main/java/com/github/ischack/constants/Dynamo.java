@@ -24,6 +24,7 @@ public abstract class Dynamo {
     public static final String USER_ID = "userId";
     public static final String USER_EMAIL = "userEmail";
     public static final String USER_PASSWORD = "userPassword";
+    public static final String USER_TYPE = "userType";
 
 
     /** EVENTS */
@@ -48,13 +49,6 @@ public abstract class Dynamo {
     public static final String GAME_PICTURE = "gamePic";
     public static final String GAME_RULES = "gameRules";
     public static final String GAME_SCORETYPE = "scoreType";
-
-
-    /** ADMINS */
-
-    public static final String TABLE_ADMINS = "isc-hack-admins";
-
-    public static final String EVENT_IDS = "eventIds";
 
 
     /** PLAYERS */

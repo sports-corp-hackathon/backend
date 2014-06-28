@@ -3,7 +3,8 @@ package com.github.ischack.controller;
 import com.github.ischack.constants.Dynamo;
 import com.github.ischack.model.Event;
 import com.github.ischack.model.Game;
-import com.github.ischack.repository.EventRepository;
+import com.github.ischack.repository.EventStore;
+import com.github.ischack.repository.GameStore;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -16,7 +17,7 @@ public class EventController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Event> getEvents() {
-        return EventRepository.getAllEvents();
+        return EventStore.getAllEvents();
     }
 
     @GET @Path("/{" + Dynamo.EVENT_ID + "}")
@@ -24,7 +25,7 @@ public class EventController {
     public Event getEvent(
             @PathParam(Dynamo.EVENT_ID) String eventId
     ) {
-        return EventRepository.getEvent(eventId);
+        return EventStore.getEvent(eventId);
     }
 
     @GET @Path("/{" + Dynamo.EVENT_ID + "}/games")
@@ -32,7 +33,7 @@ public class EventController {
     public List<Game> getAllGames(
             @PathParam(Dynamo.EVENT_ID) String eventId
     ) {
-        return EventRepository.getAllGames(eventId);
+        return GameStore.getGamesByEvent(eventId);
     }
 
     @POST
@@ -41,22 +42,13 @@ public class EventController {
 
         try {
             Event e = Event.fromJson(data);
-            EventRepository.putEvent(e);
+            EventStore.createEvent(e);
         } catch (IOException e) {
             return e.getMessage();
         }
 
         return "success";
 
-    }
-
-    @DELETE @Path("/{" + Dynamo.EVENT_ID + "}")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String deleteEvent(
-            @PathParam("eventId") String eventId
-    ) {
-        EventRepository.deleteEvent(eventId);
-        return "success";
     }
 
 }

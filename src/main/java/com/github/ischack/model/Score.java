@@ -10,6 +10,7 @@ import java.io.IOException;
 public class Score {
 
     private String playerId;
+    private String gameId;
     private String score;
 
     public String getPlayerId() {
@@ -18,6 +19,14 @@ public class Score {
 
     public void setPlayerId(String playerId) {
         this.playerId = playerId;
+    }
+
+    public String getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(String gameId) {
+        this.gameId = gameId;
     }
 
     public String getScore() {

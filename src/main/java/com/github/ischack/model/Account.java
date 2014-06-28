@@ -14,6 +14,7 @@ public class Account {
     private String email;
     private String password;
     private String loginToken;
+    private String type;
 
     public String getId() {
         return id;
@@ -45,6 +46,14 @@ public class Account {
 
     public void setLoginToken(String loginToken) {
         this.loginToken = loginToken;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public static Account fromJson(String json) throws IOException {

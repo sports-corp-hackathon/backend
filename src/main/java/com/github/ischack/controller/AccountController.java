@@ -1,7 +1,7 @@
 package com.github.ischack.controller;
 
 import com.github.ischack.model.Account;
-import com.github.ischack.repository.AccountRepository;
+import com.github.ischack.repository.AccountStore;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -26,9 +26,7 @@ public class AccountController {
             return null;
         }
 
-        if (AccountRepository.createAccount(account) == null) {
-            return null;
-        }
+        AccountStore.createAccount(account);
 
         return account;
 
@@ -47,7 +45,7 @@ public class AccountController {
             return null;
         }
 
-        AccountRepository.login(attempt);
+        AccountStore.login(attempt);
 
         return attempt;
 
