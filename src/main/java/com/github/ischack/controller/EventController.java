@@ -18,6 +18,12 @@ public class EventController {
         return EventRepository.getAllEvents();
     }
 
+    @GET @Path("/sup")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String l() {
+        return "SUP SON";
+    }
+
     @GET @Path("/{" + Dynamo.EVENT_ID + "}")
     @Produces(MediaType.APPLICATION_JSON)
     public Event getEvent(
