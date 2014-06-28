@@ -4,7 +4,6 @@ import com.github.ischack.model.Event;
 import com.github.ischack.repository.EventStore;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
 
@@ -18,7 +17,7 @@ public class EventController {
     public Response getEventById(
             @PathParam("eventId") final String eventId
     ) {
-        System.out.println(eventId);
+
         Event event = EventStore.getEvent(eventId);
         if (event == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
