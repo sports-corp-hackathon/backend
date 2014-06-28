@@ -14,9 +14,8 @@ public class EventController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getEvents() {
-        //return EventRepository.getAllEvents();
-        return "SUP SON"; //asdf
+    public List<Event> getEvents() {
+        return EventRepository.getAllEvents();
     }
 
     @GET @Path("/{" + Dynamo.EVENT_ID + "}")
