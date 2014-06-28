@@ -48,7 +48,7 @@ public abstract class EventRepository {
         map.put(Dynamo.EVENT_ID, new AttributeValue().withS(UUID.randomUUID().toString()));
         map.put(Dynamo.EVENT_NAME, new AttributeValue().withS(e.getName()));
         map.put(Dynamo.EVENT_ORG, new AttributeValue().withS(e.getOrganization()));
-        map.put(Dynamo.EVENT_PICTURE, new AttributeValue().withS(e.getPicURL()));
+        map.put(Dynamo.EVENT_PICTURE, new AttributeValue().withS(e.getEventPic()));
         map.put(Dynamo.EVENT_START, new AttributeValue().withS(e.getStartTime()));
         map.put(Dynamo.EVENT_END, new AttributeValue().withS(e.getEndTime()));
 

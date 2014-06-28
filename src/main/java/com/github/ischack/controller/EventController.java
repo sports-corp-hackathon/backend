@@ -1,12 +1,12 @@
 package com.github.ischack.controller;
 
-import argo.saj.InvalidSyntaxException;
 import com.github.ischack.constants.Dynamo;
 import com.github.ischack.model.Event;
 import com.github.ischack.repository.EventRepository;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.io.IOException;
 import java.util.List;
 
 @Path("/event")
@@ -31,9 +31,9 @@ public class EventController {
     public String addEvent(String data) {
 
         try {
-            Event e = Event.fromJsonFromPost(data);
+            Event e = Event.fromJson(data);
             EventRepository.putEvent(e);
-        } catch (InvalidSyntaxException e) {
+        } catch (IOException e) {
             return e.getMessage();
         }
 

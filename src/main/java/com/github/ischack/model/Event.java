@@ -5,8 +5,11 @@ import argo.jdom.JsonRootNode;
 import argo.saj.InvalidSyntaxException;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.util.json.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.ischack.constants.Dynamo;
 
+import java.io.IOError;
+import java.io.IOException;
 import java.util.Map;
 
 public class Event {
@@ -14,7 +17,7 @@ public class Event {
     private String id;
     private String name;
     private String organization;
-    private String picURL;
+    private String eventPic;
     private String startTime;
     private String endTime;
 
@@ -42,12 +45,12 @@ public class Event {
         this.organization = organization;
     }
 
-    public String getPicURL() {
-        return picURL;
+    public String getEventPic() {
+        return eventPic;
     }
 
-    public void setPicURL(String picURL) {
-        this.picURL = picURL;
+    public void setEventPic(String eventPic) {
+        this.eventPic = eventPic;
     }
 
     public String getStartTime() {
@@ -67,18 +70,9 @@ public class Event {
     }
 
 
-    public static Event fromJsonFromPost(String json) throws InvalidSyntaxException {
-        JdomParser parser = new JdomParser();
-        JsonRootNode node = parser.parse(json);
-
-        Event e = new Event();
-        e.setName(node.getStringValue("name"));
-        e.setOrganization(node.getStringValue("organization"));
-        e.setPicURL(node.getStringValue("picture"));
-        e.setStartTime(node.getStringValue("startTime"));
-        e.setEndTime(node.getStringValue("endTime"));
-
-        return e;
+    public static Event fromJson(String json) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.readValue(json, Event.class);
     }
 
     public static Event fromMap(Map<String, AttributeValue> map) {
@@ -86,7 +80,7 @@ public class Event {
         e.setId(map.get(Dynamo.EVENT_ID).getS());
         e.setName(map.get(Dynamo.EVENT_NAME).getS());
         e.setOrganization(map.get(Dynamo.EVENT_ORG).getS());
-        e.setPicURL(map.get(Dynamo.EVENT_PICTURE).getS());
+        e.setEventPic(map.get(Dynamo.EVENT_PICTURE).getS());
         e.setStartTime(map.get(Dynamo.EVENT_START).getS());
         e.setEndTime(map.get(Dynamo.EVENT_END).getS());
 

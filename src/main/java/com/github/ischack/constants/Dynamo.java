@@ -29,4 +29,12 @@ public abstract class Dynamo {
     public static final String EVENT_END = "endTime";
 
 
+    /** LOGIN */
+
+    public static final String TABLE_ACCOUNTS = "isc-hack-accounts";
+
+    public static final String USER_ID = "userId";
+    public static final String USER_EMAIL = "userEmail";
+    public static final String USER_PASSWORD = "userPassword";
+
 }
