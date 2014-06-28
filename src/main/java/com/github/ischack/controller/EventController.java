@@ -14,13 +14,8 @@ public class EventController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Event> getEvents() {
-        return EventRepository.getAllEvents();
-    }
-
-    @GET @Path("/sup")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String l() {
+    public String getEvents() {
+        //return EventRepository.getAllEvents();
         return "SUP SON";
     }
 
