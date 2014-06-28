@@ -1,9 +1,12 @@
 package com.github.ischack.controller;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import com.github.ischack.model.Event;
+import com.github.ischack.repository.EventStore;
+
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.io.IOException;
 
 /**
  * Created by mike on 6/28/14.
@@ -11,10 +14,32 @@ import javax.ws.rs.core.MediaType;
 @Path("/event")
 public class EventController {
 
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String get() {
-        return "hello";
+    @GET @Path("/{eventId}")
+    public Response getEventById(
+            @PathParam("eventId") final String eventId
+    ) {
+        System.out.println(eventId);
+        Event event = EventStore.getEvent(eventId);
+        if (event == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        return Response.ok().entity(event).build();
+    }
+
+    @POST
+    public Response createEvent(String data) {
+
+        Event event = null;
+
+        try {
+            event = Event.fromJson(data);
+        } catch (IOException e) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+
+        EventStore.createEvent(event);
+
+        return Response.ok().entity(event).build();
     }
 
 }
