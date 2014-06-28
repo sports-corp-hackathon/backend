@@ -3,6 +3,7 @@ package com.github.ischack.repository;
 import com.amazonaws.services.dynamodbv2.model.*;
 import com.github.ischack.constants.Dynamo;
 import com.github.ischack.model.Event;
+import com.github.ischack.model.Game;
 
 import java.util.*;
 
@@ -70,6 +71,51 @@ public abstract class EventRepository {
                 .withKey(map);
 
         Dynamo.client.deleteItem(request);
+
+    }
+
+    public static List<Game> getAllGames(String eventId) {
+
+        Map<String, AttributeValue> map = new HashMap<>();
+        map.put(Dynamo.EVENT_ID, new AttributeValue().withS(eventId));
+
+        GetItemRequest request = new GetItemRequest(Dynamo.TABLE_EVENTS, map);
+        GetItemResult result = Dynamo.client.getItem(request);
+
+        Map<String, AttributeValue> resultMap = result.getItem();
+
+        List<String> gameIds = resultMap.get(Dynamo.EVENT_GAMES).getSS();
+
+        List<Game> games = new LinkedList<>();
+        for (String id : gameIds) {
+            games.add(GameRepository.getGame(id));
+        }
+
+        return games;
+
+    }
+
+    public static void addGameToEvent(final Game g) {
+
+        Event e = getEvent(g.getEventId());
+        List<String> curGames = e.getGames();
+
+        if (curGames == null) {
+            curGames = new LinkedList<>();
+        }
+
+        curGames.add(g.getId());
+
+        Map<String, AttributeValue> key = new HashMap<String, AttributeValue>() {{
+            put(Dynamo.EVENT_ID, new AttributeValue().withS(g.getEventId()));
+        }};
+
+        Map<String, AttributeValueUpdate> updates = new HashMap<>();
+        updates.put(Dynamo.EVENT_GAMES, new AttributeValueUpdate().withValue(new AttributeValue().withSS(curGames)));
+
+        UpdateItemRequest request = new UpdateItemRequest(Dynamo.TABLE_EVENTS, key, updates);
+
+        Dynamo.client.updateItem(request);
 
     }
 }

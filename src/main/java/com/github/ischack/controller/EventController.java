@@ -2,6 +2,7 @@ package com.github.ischack.controller;
 
 import com.github.ischack.constants.Dynamo;
 import com.github.ischack.model.Event;
+import com.github.ischack.model.Game;
 import com.github.ischack.repository.EventRepository;
 
 import javax.ws.rs.*;
@@ -24,6 +25,14 @@ public class EventController {
             @PathParam(Dynamo.EVENT_ID) String eventId
     ) {
         return EventRepository.getEvent(eventId);
+    }
+
+    @GET @Path("/{" + Dynamo.EVENT_ID + "}/games")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Game> getAllGames(
+            @PathParam(Dynamo.EVENT_ID) String eventId
+    ) {
+        return EventRepository.getAllGames(eventId);
     }
 
     @POST

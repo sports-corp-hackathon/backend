@@ -10,6 +10,7 @@ import com.github.ischack.constants.Dynamo;
 
 import java.io.IOError;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 public class Event {
@@ -20,6 +21,7 @@ public class Event {
     private String eventPic;
     private String startTime;
     private String endTime;
+    private List<String> games;
 
     public String getId() {
         return id;
@@ -69,6 +71,13 @@ public class Event {
         this.endTime = endTime;
     }
 
+    public List<String> getGames() {
+        return games;
+    }
+
+    public void setGames(List<String> games) {
+        this.games = games;
+    }
 
     public static Event fromJson(String json) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
@@ -77,12 +86,27 @@ public class Event {
 
     public static Event fromMap(Map<String, AttributeValue> map) {
         Event e = new Event();
-        e.setId(map.get(Dynamo.EVENT_ID).getS());
-        e.setName(map.get(Dynamo.EVENT_NAME).getS());
-        e.setOrganization(map.get(Dynamo.EVENT_ORG).getS());
-        e.setEventPic(map.get(Dynamo.EVENT_PICTURE).getS());
-        e.setStartTime(map.get(Dynamo.EVENT_START).getS());
-        e.setEndTime(map.get(Dynamo.EVENT_END).getS());
+
+        AttributeValue v = map.get(Dynamo.EVENT_ID);
+        if (v != null) { e.setId(v.getS()); }
+
+        v = map.get(Dynamo.EVENT_NAME);
+        if (v != null) { e.setName(v.getS()); }
+
+        v = map.get(Dynamo.EVENT_ORG);
+        if (v != null) { e.setOrganization(v.getS()); }
+
+        v = map.get(Dynamo.EVENT_PICTURE);
+        if (v != null) { e.setEventPic(v.getS()); }
+
+        v = map.get(Dynamo.EVENT_START);
+        if (v != null) { e.setStartTime(v.getS()); }
+
+        v = map.get(Dynamo.EVENT_END);
+        if (v != null) { e.setEndTime(v.getS()); }
+
+        v = map.get(Dynamo.EVENT_GAMES);
+        if (v != null) { e.setGames(v.getSS()); }
 
         return e;
     }

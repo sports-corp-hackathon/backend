@@ -17,6 +17,15 @@ public abstract class Dynamo {
     }
 
 
+    /** LOGIN */
+
+    public static final String TABLE_ACCOUNTS = "isc-hack-accounts";
+
+    public static final String USER_ID = "userId";
+    public static final String USER_EMAIL = "userEmail";
+    public static final String USER_PASSWORD = "userPassword";
+
+
     /** EVENTS */
 
     public static final String TABLE_EVENTS = "isc-hack-events";
@@ -27,14 +36,27 @@ public abstract class Dynamo {
     public static final String EVENT_PICTURE = "eventPic";
     public static final String EVENT_START = "startTime";
     public static final String EVENT_END = "endTime";
+    public static final String EVENT_GAMES = "eventGames";
 
 
-    /** LOGIN */
+    /** GAMES */
 
-    public static final String TABLE_ACCOUNTS = "isc-hack-accounts";
+    public static final String TABLE_GAMES = "isc-hack-games";
 
-    public static final String USER_ID = "userId";
-    public static final String USER_EMAIL = "userEmail";
-    public static final String USER_PASSWORD = "userPassword";
+    public static final String GAME_ID = "gameId";
+    public static final String GAME_NAME = "gameName";
+    public static final String GAME_PICTURE = "gamePic";
+    public static final String GAME_RULES = "gameRules";
+    public static final String GAME_SCORETYPE = "scoreType";
+
+
+    /** ADMINS */
+
+    public static final String TABLE_ADMINS = "isc-hack-admins";
+
+    public static final String EVENT_IDS = "eventIds";
+
+
+
 
 }
