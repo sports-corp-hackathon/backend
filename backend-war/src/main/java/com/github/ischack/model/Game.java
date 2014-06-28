@@ -15,6 +15,7 @@ public class Game {
     private String name;        public static String NAME = "name";
     private String gamePic;     public static String PIC = "gamePic";
     private String rules;       public static String RULES = "rules";
+    private String info;        public static String INFO = "info";
     private String scoreType;   public static String SCORETYPE = "scoreType";
 
     public String getId() {
@@ -57,6 +58,14 @@ public class Game {
         this.rules = rules;
     }
 
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
     public String getScoreType() {
         return scoreType;
     }
@@ -71,6 +80,7 @@ public class Game {
         e.setProperty(NAME, name);
         e.setProperty(PIC, gamePic);
         e.setProperty(RULES, rules);
+        e.setProperty(INFO, info);
         e.setProperty(SCORETYPE, scoreType);
     }
 
@@ -85,6 +95,7 @@ public class Game {
         g.setScoreType((String) e.getProperty(SCORETYPE));
         g.setEventId((String) e.getProperty(EVENTID));
         g.setRules((String) e.getProperty(RULES));
+        g.setInfo((String) e.getProperty(INFO));
         g.setGamePic((String) e.getProperty(PIC));
         g.setName((String) e.getProperty(NAME));
         return g;
