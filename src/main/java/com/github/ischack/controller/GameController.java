@@ -6,6 +6,7 @@ import com.github.ischack.model.Score;
 import com.github.ischack.repository.GameRepository;
 import com.github.ischack.repository.PlayerRepository;
 
+import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
@@ -17,11 +18,18 @@ import java.util.List;
 @Path("/game")
 public class GameController {
 
+    @GET @Path("/{" + Dynamo.GAME_ID + "}/scores")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Score> getScores(
+            @PathParam(Dynamo.GAME_ID) final String gameId
+    ) {
+        return PlayerRepository.getScoresByGame(gameId);
+    }
+
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Game createGame(String data) {
         try {
-
             Game g = null;
             try {
                 g = Game.fromJson(data);
