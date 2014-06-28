@@ -15,7 +15,7 @@ import java.io.IOException;
 @Path("/volunteer")
 public class VolunteerController {
 
-    @GET @Path("/{volunteerId")
+    @GET @Path("/{volunteerId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getVolunteer(
             @PathParam("volunteerId") final String volunteerId

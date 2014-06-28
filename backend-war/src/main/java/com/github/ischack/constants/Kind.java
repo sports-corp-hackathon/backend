@@ -7,6 +7,7 @@ public class Kind {
 
     public static final String EVENT = "Event";
     public static final String GAME = "Game";
+    public static final String SCORE = "Score";
 
     public static final String VOLUNTEER = "Volunteer";
     public static final String PLAYER = "Player";
