@@ -57,6 +57,12 @@ public abstract class Dynamo {
     public static final String EVENT_IDS = "eventIds";
 
 
+    /** PLAYERS */
+
+    public static final String TABLE_PLAYERS = "isc-hack-players";
+
+    public static final String PLAYER_ID = "playerId";
+    public static final String PLAYER_SCORES = "playerScores";
 
 
 }

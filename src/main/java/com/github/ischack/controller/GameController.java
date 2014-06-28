@@ -1,12 +1,12 @@
 package com.github.ischack.controller;
 
+import com.github.ischack.constants.Dynamo;
 import com.github.ischack.model.Game;
+import com.github.ischack.model.Score;
 import com.github.ischack.repository.GameRepository;
+import com.github.ischack.repository.PlayerRepository;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.util.List;
@@ -18,21 +18,47 @@ import java.util.List;
 public class GameController {
 
     @POST
-    @Produces(MediaType.TEXT_PLAIN)
-    public void createGame(String data) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public Game createGame(String data) {
         try {
+
             Game g = null;
             try {
                 g = Game.fromJson(data);
             } catch (IOException e) {
                 e.printStackTrace();
-                return;
+                return null;
             }
 
             GameRepository.putGame(g);
+            return g;
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return null;
+    }
+
+    @POST @Path("/{" + Dynamo.GAME_ID + "}/score")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String scorePlayer(
+            @PathParam(Dynamo.GAME_ID) final String gameId,
+            String data
+    ) {
+
+        Score score = null;
+        try {
+            score = Score.fromJson(data);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "Error";
+        }
+
+        PlayerRepository.putScore(score, gameId);
+
+        return "success";
+
     }
 
 }
