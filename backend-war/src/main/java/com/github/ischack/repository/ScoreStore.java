@@ -5,10 +5,7 @@ import com.github.ischack.model.Game;
 import com.github.ischack.model.Score;
 import com.google.appengine.api.datastore.*;
 
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by mike on 6/28/14.
@@ -51,7 +48,7 @@ public class ScoreStore {
             scores.add(Score.fromEntity(e));
         }
 
-        sort(scores);
+//        sort(scores);
         return scores;
 
     }
@@ -89,20 +86,25 @@ public class ScoreStore {
         service.put(gameEntity);
 
     }
-
-    private static void sort(List<Score> scores) {
-        scores.sort(new Comparator<Score>() {
-            public int compare(Score o1, Score o2) {
-                int i1, i2;
-                try {
-                    i1 = Integer.parseInt(o1.getScore());
-                    i2 = Integer.parseInt(o2.getScore());
-                } catch (NumberFormatException e) {
-                    return 0;
-                }
-                return i2 - i1;
-            }
-        });
-    }
+//
+//    private static void sort(List<Score> scores) {
+//
+//        Collections.sort(scores, new Comparator<Score>() {
+//
+//            @Override
+//            public int compare(Score o1, Score o2) {
+//                int i1, i2;
+//                try {
+//                    i1 = Integer.parseInt(o1.getScore());
+//                    i2 = Integer.parseInt(o2.getScore());
+//                } catch (NumberFormatException e) {
+//                    return 0;
+//                }
+//                return i2 - i1;
+//            }
+//
+//        });
+//
+//    }
 
 }
